@@ -2,15 +2,15 @@ document.getElementById("runTool").addEventListener("click", function() {
     chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
         chrome.tabs.sendMessage(tabs[0].id, { action: "findLinks" }, function(response) {
             const pdfChecked = document.getElementById("pdfCheckbox").checked;
-            const imgChecked = document.getElementById("imgCheckbox");
-            
-            
-            updateOutput(response.pdfFiles, response.imgFiles, pdfChecked, imgChecked);
+            const imgChecked = document.getElementById("imgCheckbox").checked;
+            const emailChecked = document.getElementById("emailCheckbox").checked;
+
+            updateOutput(response.pdfFiles, response.imgFiles, response.emails, pdfChecked, imgChecked, emailChecked);
         });
     });
 });
 
-function updateOutput(pdfFiles, imgFiles, pdfChecked, imgChecked) {
+function updateOutput(pdfFiles, imgFiles, emails, pdfChecked, imgChecked, emailChecked) {
     // Élément de sortie
     const output = document.getElementById("output");
 
@@ -23,26 +23,17 @@ function updateOutput(pdfFiles, imgFiles, pdfChecked, imgChecked) {
     // Gestion des fichiers PDF
     if (pdfChecked && pdfFiles.length > 0) {
         results.push(...pdfFiles.map(pdf => `<a href="${pdf.link}" target="_blank" class="pdf-link" data-href="${pdf.link}">${pdf.name}</a>`));
-    } else if (pdfChecked) {
-        output.innerHTML = "0 file(s) found";
-        output.style.display = "block";
-        document.getElementById("clear").style.display = "none";
-        document.getElementById("download").style.display = "none";
-        return;
     }
 
     // Gestion des fichiers Image
     if (imgChecked && imgFiles.length > 0) {
         results.push(...imgFiles.map(img => `<a href="${img.link}" target="_blank" class="img-link" data-href="${img.link}">${img.name}</a>`));
-    } else if (imgChecked) {
-        output.innerHTML = "0 file(s) found";
-        output.style.display = "block";
-        document.getElementById("clear").style.display = "none";
-        document.getElementById("download").style.display = "none";
-        return;
     }
 
-    
+    // Gestion des emails
+    if (emailChecked && emails.length > 0) {
+        results.push(...emails.map(email => `<a href="mailto:${email.link}" target="_blank" class="email-link" data-href="${email.link}">${email.name}</a>`));
+    }
 
     // Affichage des résultats
     if (results.length > 0) {
@@ -50,6 +41,11 @@ function updateOutput(pdfFiles, imgFiles, pdfChecked, imgChecked) {
         output.style.display = "block";
         document.getElementById("clear").style.display = "block";
         document.getElementById("download").style.display = "block";
+    } else {
+        output.innerHTML = `No files found`;
+        output.style.display = "block";
+        document.getElementById("clear").style.display = "none";
+        document.getElementById("download").style.display = "none";
     }
     
     // Ajoutez des événements de survol pour les aperçus
@@ -60,22 +56,18 @@ function addHoverEffects() {
     const pdfLinks = document.querySelectorAll('.pdf-link');
     const imgLinks = document.querySelectorAll('.img-link');
 
-    pdfLinks.forEach(link => {
-        link.addEventListener('mouseover', function() {
-            showPreview(this.dataset.href, 'pdf');
-        });
-        link.addEventListener('mouseout', hidePreview);
-    });
 
-    imgLinks.forEach(link => {
-        link.addEventListener('mouseover', function() {
-            showPreview(this.dataset.href, 'img');
+    [pdfLinks, imgLinks].forEach(links => {
+        links.forEach(link => {
+            link.addEventListener('mouseover', function() {
+                showPreview(this.dataset.href);
+            });
+            link.addEventListener('mouseout', hidePreview);
         });
-        link.addEventListener('mouseout', hidePreview);
     });
 }
 
-function showPreview(link, type) {
+function showPreview(link) {
     const previewBox = document.createElement('div');
     previewBox.setAttribute('id', 'preview-box');
     previewBox.style.position = 'absolute';
@@ -87,8 +79,13 @@ function showPreview(link, type) {
     previewBox.style.borderRadius = '5px';
     document.body.appendChild(previewBox);
 
+    const type = link.startsWith('mailto') ? 'email' : (link.endsWith('.pdf') ? 'pdf' : 'img');
+    
     if (type === 'pdf') {
         previewBox.innerHTML = `<iframe src="${link}" width="300" height="250" style="border:none;"></iframe>`;
+    } else if (type === 'email') {
+        const emailBody = `Subject: PDF File from Website\n\nHi,\n\nPlease find attached the requested file.\n\nBest regards,\nYour Name`;
+        previewBox.innerHTML = `<a href="${link}" download target="_blank" style="color:#00FF41;">Download</a><br>${emailBody}`;
     } else {
         const img = document.createElement('img');
         img.src = link;

@@ -2,13 +2,12 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.action === "findLinks") {
         const pdfLinks = findPdfLinks(); // Récupérez les PDF
         const imgLinks = findImageLinks(); // Récupérez les images
-     
+        const emailLinks = findEmailLinks(); // Récupérez les adresses emails
+
         // Envoyer les résultats au popup
-        sendResponse({ pdfFiles: pdfLinks, imgFiles: imgLinks,  });
-        
+        sendResponse({ pdfFiles: pdfLinks, imgFiles: imgLinks, emails: emailLinks });
     }
 });
-
 
 
 function findPdfLinks() {
@@ -120,12 +119,9 @@ function findEmailLinks() {
 
     // Conversion du Set en tableau d'objets
     const emails = Array.from(emailsSet).map(email => {
-        return { name: `Email link: ${email}`, link: email };
+        return { name: `${email}`, link: email };
     });
 
     return emails; 
 }
-
-
-
 
