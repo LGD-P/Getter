@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Getter Tool</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* Styles inchangés */
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background-color: #0D0208; 
+      color: #ffffff; 
+      padding: 20px;
+      border: #00FF41;
+      border-radius: 15px;
+      margin: 0;
+      width: 500px; 
+    }
+    h1, input {
+      font-size: 24px; 
+      margin-bottom: 15px;
+      color: #00FF41; 
+      text-align: center;
+    }
+    .icon {
+            width: 75px; /* Ajustez la taille de l'icône comme vous le souhaitez */
+            height: 75px;
+            margin-bottom: 8px; /* Espace entre l'icône et le titre */
+            
+        }
+
+    p {
+      text-align: center;
+    }
+
+    button {
+      background-color:  #008F11; 
+      color: #232835; 
+      border: none;
+      border-radius: 5px;
+      padding: 10px; 
+      cursor: pointer;
+      width: 100%;
+      margin-top: 10px; 
+      transition: background-color 0.3s, transform 0.2s; 
+    }
+
+    button:hover {
+      background-color: #00FF41; 
+      transform: scale(1.05); 
+    }
+
+    .output {
+      margin-top: 15px;
+      padding: 15px;
+      background-color: #373a42; 
+      border-radius: 5px;
+      max-height: 200px; 
+      overflow-y: auto;
+      border: 1px solid #00FF41;; 
+    }
+
+    .placeholder {
+      color: #aaa; 
+      text-align: center;
+      font-size: 18px;
+    }
+
+    a {
+      color:  #00FF41;; 
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .checkbox-container {
+      display: flex;
+      justify-content: center;
+      margin: 15px 0; 
+    }
+
+    .checkbox {
+      margin: 0 15px; 
+    }
+
+    .checkbox label {
+      color:  #00FF41;;
+      font-size: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <p>
+      <img src="icons/cart.ico" alt="Icône de panier" class="icon">
+    </p>
+    <div class="checkbox-container">
+      <div class="checkbox">
+        <label>
+          <input type="radio" id="pdfCheckbox" name="fileType" value="pdf"> PDF
+        </label>
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="radio" id="imgCheckbox" name="fileType" value="img"> IMG
+        </label>
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="radio" id="emailCheckbox" name="fileType" value="email"> EMAIL
+        </label>
+      </div>
+    </div>
+
+    <button id="runTool">Execute</button>
+
+    <div class="output" id="output" style="display: none;">
+      <span class="placeholder" id="placeholder">No file(s) found</span>
+    </div>
+    <button id="clear" style="display: none;">Trash</button>
+    <button id="download" style="display: none;">Download</button>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
