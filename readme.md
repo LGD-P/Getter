@@ -25,7 +25,7 @@ To use this extension:
   - Anchor tags with `mailto:` protocol
 
 ## Important Notice
-This extension is intended for ethical OSINT purposes only. Misuse of this tool may lead to serious legal consequences, including but not limited to unauthorized access to personal or sensitive information. The developers are not responsible for any actions taken by users that violate laws or regulations.
+This extension is intended for ethical OSINT purposes only. Misuse of this tool may lead to serious legal consequences, including but not limited to unauthorized access to personal or sensitive information. Developer is not responsible for any actions taken by users that violate laws or regulations.
 
 ## Security Precautions
 - Be cautious when using this tool on untrusted websites.
