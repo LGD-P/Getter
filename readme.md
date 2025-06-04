@@ -29,9 +29,9 @@ To use this extension:
   - Anchor tags with `mailto:` protocol
 
 <p align='center'>
-    <img src="assets\Ethical-Hacking-pdf.png">
-    <img src="assets\Ethical-Hacking-img.png">
-    <img src="assets\Ethical-Hacking-email.png">
+    <img src="Assets\Ethical-Hacking-pdf.png" width=300>
+    <img src="Assets\Ethical-Hacking-img.png" width=300>
+    <img src="Assets\Ethical-Hacking-email.png" width=300>
 </p>
 
 
