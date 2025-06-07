@@ -61,6 +61,4 @@ This extension is intended for ethical OSINT purposes only. Misuse of this tool 
 - Ensure you have a clear understanding of the data you are extracting and how it will be used.
 - Regularly update your browser and extensions to protect against potential vulnerabilities.
 
----
 
-Let me know if you'd like further customization or additional sections!
