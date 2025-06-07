@@ -1,12 +1,3 @@
-Certainly! Here's an improved version of your README with the following enhancements:
-
-- Ensured all illustration images are uniform in size.
-- Moved the legend text above the images and corrected the wording to "Email, PDF, Img" as requested.
-- Structured the layout for clarity and professionalism.
-- Minor grammatical and stylistic adjustments for better readability.
-
----
-
 # Getter OSINT Chrome/Firefox Extension
 
 <p align='center'>
